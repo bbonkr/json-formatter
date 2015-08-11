@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" media="(device-height: 568px)">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Json formatted viewer">
+    <meta name="author" content="Pon Cheol Ku (@bbonkr)">
+    <title>Json formatted viewer</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <!-- Lastest jquery -->
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>Json Formatted Viewer</h1>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label class="form-control-label" for="txtjson">Json string:</label>
+                <textarea id="txtjson" class="form-control fill" rows="6"></textarea>    
+            </div>
+            <div class="text-center">
+                <button id="btnformat" class="btn btn-primary">Formatting...</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="alert alert-warning hide showmessage" role="alert">
+            </div>
+        </div>
+
+        <hr />
+
+        <!--
+        <div class="row">
+            <div class="form-group">
+                <label class="form-control-label" for="txtviewer">Output:</label>
+                <textarea id="txtviewer" class="form-control" rows="6" readonly></textarea>    
+            </div>
+        </div>
+        -->
+
+        <div class="row">
+            <div class="form-group">
+                <label class="form-control-label">Output:</label>
+                <pre id="preoutput" class="form-control-static"></pre>
+            </div>
+        </div>
+
+    </div>
+    <script>
+
+        function showAlertMessage(message){
+            $('.showmessage').show(100, function(){
+                $(this).removeClass('hide').text(message);
+
+                setTimeout(function(){
+                    $('.showmessage').empty().hide(1000, function(){
+                        $(this).addClass('hide');
+                    });
+                }, 5000);
+            });    
+        }
+
+
+        $(document).ready(function(){
+
+            $('#btnformat').click(function(event){
+                
+                event.preventDefault();
+                
+                var message = '';
+
+                //$('#txtviewer').val('');
+                $('#preoutput').empty();
+                
+                var strJson = $('#txtjson').val();
+                try{
+                    var json = JSON.parse(strJson);
+                    strJson = JSON.stringify(json, null, 4);
+                    if(json){
+
+                        //$('#txtviewer').val(strJson);
+                        $('#preoutput').text(strJson);
+                    }
+                    else{
+                        throw { message:'Could not convert to json. Check your json string.'}
+                    }
+                }
+                catch(e){
+
+                    if(e.name === 'SyntaxError'){
+                        message = 'Could not convert to json. Check your json string.';
+                    }
+                    else {
+                        message = e['message'];
+                    }
+
+                    showAlertMessage(message);
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
