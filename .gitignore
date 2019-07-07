@@ -357,5 +357,6 @@ MigrationBackup/
 
 # webpack output
 dist/
+publish/
 
 .DS_Store
