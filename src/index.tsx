@@ -1,7 +1,7 @@
-import React from 'React';
-import ReactDOM from 'react-dom';
 import { hot } from 'react-hot-loader/root';
-import JsonFomatter from './JsonFomatter';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import JsonFomatter from './components/JsonFomatter';
 
 const Hot = hot(JsonFomatter);
 

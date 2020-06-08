@@ -18,7 +18,7 @@ import 'github-fork-ribbon-css/gh-fork-ribbon.css';
 const { Header, Content, Footer } = Layout;
 
 const Validator = {
-    checkSource(formData) {
+    checkSource(formData: any) {
         const { source } = formData;
         if (!source || source.trim().length === 0) {
             return {
@@ -41,39 +41,36 @@ const JsonFomatter = () => {
     const [loading, setLoading] = useState(false);
     const [sourceErrorMessage, setSourceErrorMessage] = useState('');
 
-    const onChangeSource = useCallback(e => {
-        const newValue = e.target.value;
+    const onChangeSource = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const newValue = event.target.value;
         setSource(newValue);
         const { message } = Validator.checkSource({ source: newValue });
         setSourceErrorMessage(message);
-    }, []);
+    };
 
-    const onSubmit = useCallback(
-        e => {
-            e.preventDefault();
+    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
 
-            const { message, valid } = Validator.checkSource({
-                source,
-            });
-            setSourceErrorMessage(message);
+        const { message, valid } = Validator.checkSource({
+            source,
+        });
+        setSourceErrorMessage(message);
 
-            if (valid) {
-                setLoading(true);
-                setJson('');
-                setJsonError('');
-                try {
-                    const dist = JSON.parse(source);
-                    setJson(JSON.stringify(dist, null, 4));
-                } catch (e) {
-                    // console.log('error', e);
-                    setJsonError(e.toString());
-                } finally {
-                    setLoading(false);
-                }
+        if (valid) {
+            setLoading(true);
+            setJson('');
+            setJsonError('');
+            try {
+                const dist = JSON.parse(source);
+                setJson(JSON.stringify(dist, null, 4));
+            } catch (e) {
+                // console.log('error', e);
+                setJsonError(e.toString());
+            } finally {
+                setLoading(false);
             }
-        },
-        [source],
-    );
+        }
+    };
 
     return (
         <Layout>
@@ -89,17 +86,14 @@ const JsonFomatter = () => {
                     </ol>
                 </PageHeader>
                 <Divider dashed={true} />
-                <Form onSubmit={onSubmit}>
+                <Form onSubmitCapture={onSubmit}>
                     <Form.Item
                         label="Source"
                         hasFeedback={true}
                         help={sourceErrorMessage}
-                        validateStatus={!!sourceErrorMessage ? 'error' : ''}>
-                        <Input.TextArea
-                            value={source}
-                            onChange={onChangeSource}
-                            rows={6}
-                        />
+                        validateStatus={!!sourceErrorMessage ? 'error' : ''}
+                    >
+                        <Input.TextArea value={source} onChange={onChangeSource} rows={6} />
                     </Form.Item>
                     <Form.Item>
                         <Button
@@ -108,7 +102,8 @@ const JsonFomatter = () => {
                             loading={loading}
                             disabled={loading || !source}
                             shape="round"
-                            block={true}>
+                            block={true}
+                        >
                             Format
                         </Button>
                     </Form.Item>
@@ -129,19 +124,18 @@ const JsonFomatter = () => {
                     <>
                         <Divider orientation="left">Error</Divider>
                         <Card>
-                            <Typography.Paragraph type="danger">
-                                {jsonError}
-                            </Typography.Paragraph>
+                            <Typography.Paragraph type="danger">{jsonError}</Typography.Paragraph>
                         </Card>
                     </>
                 )}
             </Content>
             <Footer />
             <a
-                class="github-fork-ribbon"
+                className="github-fork-ribbon"
                 href="https://github.com/bbonkr/json-formatter"
                 data-ribbon="Fork me on GitHub"
-                title="Fork me on GitHub">
+                title="Fork me on GitHub"
+            >
                 Fork me on GitHub
             </a>
         </Layout>
