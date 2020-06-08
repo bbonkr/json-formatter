@@ -6,6 +6,7 @@
     "background_color": "#ffffff",
     "description": "format json data",
     "theme_color": "#ffffff",
+    "scope": "./",
     "icons": [
         { "src": "./bbon-icon-16.png", "sizes": "16x16", "type": "image/png" },
         { "src": "./bbon-icon-32.png", "sizes": "32x32", "type": "image/png" },
