@@ -360,3 +360,5 @@ dist/
 #publish/
 
 .DS_Store
+.build/
+publish/
