@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const OfflinePlugin = require('offline-plugin');
 const path = require('path');
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -39,7 +40,7 @@ module.exports = {
     plugins: [
         new webpack.LoaderOptionsPlugin({ debug: !isProduction }),
         new HtmlWebpackPlugin({
-            template: 'index.html',
+            template: './src/index.html',
         }),
         new CopyPlugin({
             patterns: [
@@ -49,6 +50,9 @@ module.exports = {
                 },
             ],
         }),
+        // https://github.com/NekR/offline-plugin
+        // it's always better if OfflinePlugin is the last plugin added
+        new OfflinePlugin(),
     ],
     output: {
         filename: 'dist/[name].js',
