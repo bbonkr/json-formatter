@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-const OfflinePlugin = require('offline-plugin');
+const workboxPlugin = require('workbox-webpack-plugin');
 const path = require('path');
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -50,9 +50,18 @@ module.exports = {
                 },
             ],
         }),
-        // https://github.com/NekR/offline-plugin
-        // it's always better if OfflinePlugin is the last plugin added
-        new OfflinePlugin(),
+        new workboxPlugin.GenerateSW({
+            // we want our service worker to cache the dist directory
+            // globDirectory: 'publish',
+            // these are the sorts of files we want to cache
+            // globPatterns: ['**/*.{html,js,css,png,svg,jpg,gif,json}'],
+            // this is where we want our ServiceWorker to be created
+            swDest: path.resolve('publish', 'sw.js'),
+            // these options encourage the ServiceWorkers to get in there fast
+            // and not allow any straggling "old" SWs to hang around
+            clientsClaim: true,
+            skipWaiting: true,
+        }),
     ],
     output: {
         filename: 'dist/[name].js',
