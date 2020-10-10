@@ -10,6 +10,7 @@ import {
     Divider,
     Card,
     Affix,
+    Empty,
 } from 'antd';
 
 import 'antd/dist/antd.css';
@@ -75,25 +76,28 @@ const JsonFomatter = () => {
     return (
         <Layout>
             <BackTop />
-            <Header>
+            <Header style={{position:'fixed', zIndex: 100, width: '100%'}}>
                 <h1 style={{ color: 'white' }}>Json Formatter</h1>
             </Header>
-            <Content style={{ minHeight: '100vh', padding: '1.3rem' }}>
-                <PageHeader title="Usage">
-                    <ol>
-                        <li>Pastes your source text on source textarea.</li>
-                        <li>Click a format button.</li>
-                    </ol>
-                </PageHeader>
-                <Divider dashed={true} />
-                <Form onSubmitCapture={onSubmit}>
+            <Content style={{
+                minHeight: 'calc(100vh - 113px)',
+                padding: '1.3rem', marginTop: '64px'
+            }}>
+               
+                <Form onSubmitCapture={onSubmit} layout="vertical"> 
                     <Form.Item
                         label="Source"
                         hasFeedback={true}
                         help={sourceErrorMessage}
-                        validateStatus={!!sourceErrorMessage ? 'error' : ''}
+                        validateStatus={Boolean(sourceErrorMessage) ? 'error' : ''}
+                        extra={(
+                            <ol>
+                                <li>Pastes your source text on source textarea.</li>
+                                <li>Click a Format button.</li>
+                            </ol>
+                        )}
                     >
-                        <Input.TextArea value={source} onChange={onChangeSource} rows={6} />
+                        <Input.TextArea value={source} onChange={onChangeSource} rows={8} />
                     </Form.Item>
                     <Form.Item>
                         <Button
@@ -109,7 +113,7 @@ const JsonFomatter = () => {
                     </Form.Item>
                 </Form>
 
-                {!!json && (
+                {Boolean(json) ? (
                     <>
                         <Divider orientation="left">Formatted</Divider>
                         <Card>
@@ -118,9 +122,9 @@ const JsonFomatter = () => {
                             </pre>
                         </Card>
                     </>
-                )}
+                ):<Empty description="" />}
 
-                {!!jsonError && (
+                {Boolean(jsonError) && (
                     <>
                         <Divider orientation="left">Error</Divider>
                         <Card>
@@ -132,6 +136,9 @@ const JsonFomatter = () => {
             <Footer />
             <a
                 className="github-fork-ribbon"
+                style={{
+                    position: 'fixed',
+                }}
                 href="https://github.com/bbonkr/json-formatter"
                 data-ribbon="Fork me on GitHub"
                 title="Fork me on GitHub"
