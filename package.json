@@ -9,7 +9,10 @@
         "build:netlify": "webpack"
     },
     "keywords": [],
-    "author": "bbon <bbon@bbon.kr>",
+    "author": {
+        "name": "Poncheol Ku",
+        "email": "bbon@bbon.kr"
+    },
     "license": "MIT",
     "dependencies": {
         "antd": "^4.7.0",
