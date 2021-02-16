@@ -1,0 +1,6 @@
+.go-to-top {
+    position: fixed;
+    display: block;
+    bottom: 24px;
+    right: 24px;
+}

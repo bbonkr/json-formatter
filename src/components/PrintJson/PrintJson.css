@@ -1,0 +1,8 @@
+.print-json {
+    padding: 0.8rem;
+    margin-bottom: 64px;
+}
+
+.print-json pre {
+    padding: 0.8rem;
+}

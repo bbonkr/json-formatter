@@ -1,0 +1,14 @@
+.main-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    margin-top: 64px;
+}
+
+.main-form textarea {
+    width: 100%;
+}
+.button-group > *{
+flex:1;
+}

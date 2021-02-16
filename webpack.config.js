@@ -20,16 +20,22 @@ module.exports = {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: 'ts-loader',
                 exclude: /node_modules/,
-            },
-            {
-                test: /\.jsx?$/,
-                loader: 'babel-loader',
-                options: {
-                    presets: ['@babel/preset-env', '@babel/preset-react'],
-                },
-                exclude: path.join(__dirname, 'node_modules'),
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: [
+                                '@babel/preset-env',
+                                '@babel/preset-react',
+                                '@babel/preset-typescript',
+                            ],
+                            plugins: [
+                                !isProduction && 'react-refresh/babel',
+                            ].filter(Boolean),
+                        },
+                    },
+                ],
             },
             {
                 test: /\.css$/,

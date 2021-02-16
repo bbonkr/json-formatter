@@ -4,6 +4,9 @@
     "data": [
         { "code": "0001", "value": "Accordion", "remark": "" },
         { "code": "0002", "value": "Y", "remark": "" },
-        { "code": "0003", "value": "Y", "remark": "" }
+        { "code": "0003", "value": "Y", "remark": "" },
+        { "code": "0004", "value": "Accordion", "remark": "" },
+        { "code": "0005", "value": "M", "remark": "" },
+        { "code": "0006", "value": "<", "remark": "" }
     ]
 }
