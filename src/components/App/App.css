@@ -1,0 +1,21 @@
+html,
+body {
+    padding: 0;
+    margin: 0;
+}
+
+section {
+    padding: 0.6rem;
+}
+
+#app {
+    position: relative;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+}
