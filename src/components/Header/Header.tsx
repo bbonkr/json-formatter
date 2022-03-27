@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-    AppBar,
-    Toolbar,
-    IconButton,
-    Typography,
-    Button,
-} from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import GitHubIcon from '@material-ui/icons/GitHub';
+import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core';
+import { GitHub } from '@mui/icons-material';
+
 import './Header.css';
 
 export const Header = () => {
@@ -27,7 +21,7 @@ export const Header = () => {
                     aria-label="github"
                     onClick={handleClickGitHub}
                 >
-                    <GitHubIcon />
+                    <GitHub />
                 </IconButton>
             </Toolbar>
         </AppBar>

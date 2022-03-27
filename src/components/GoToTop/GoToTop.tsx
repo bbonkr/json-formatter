@@ -1,6 +1,6 @@
 import React from 'react';
 import { IconButton } from '@material-ui/core';
-import VerticalAlignTopIcon from '@material-ui/icons/VerticalAlignTop';
+import { VerticalAlignTop } from '@mui/icons-material';
 import './GoToTop.css';
 
 interface GoToTopProps {
@@ -17,7 +17,7 @@ export const GoToTop = ({ show }: GoToTopProps) => {
     return (
         <div className="go-to-top">
             <IconButton color="default" onClick={handleClickGoToTop}>
-                <VerticalAlignTopIcon />
+                <VerticalAlignTop />
             </IconButton>
         </div>
     );
