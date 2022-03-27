@@ -1,76 +1,59 @@
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
-const workboxPlugin = require('workbox-webpack-plugin');
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = process.env.STAGE === 'production';
 
 module.exports = {
-    name: 'json-fomatter-build',
-    mode: isProduction ? 'production' : 'development',
+    name: 'build',
     devtool: isProduction ? 'hidden-source-map' : 'eval',
+    mode: isProduction ? 'production' : 'development',
     resolve: {
-        extensions: ['.jsx', '.js', '.ts', '.tsx'],
+        extensions: ['.ts', '.tsx', '.js', '.jsx'],
     },
     entry: {
-        app: './src/index',
+        app: path.join(__dirname, 'src', 'index'),
     },
     module: {
         rules: [
             {
                 test: /\.tsx?$/,
-                exclude: /node_modules/,
                 use: [
                     {
                         loader: 'babel-loader',
                         options: {
-                            presets: [
-                                '@babel/preset-env',
-                                '@babel/preset-react',
-                                '@babel/preset-typescript',
-                            ],
                             plugins: [
                                 !isProduction && 'react-refresh/babel',
                             ].filter(Boolean),
                         },
                     },
-                ],
+                ].filter(Boolean),
+                exclude: /node_modules/,
             },
             {
-                test: /\.css$/,
+                test: /\.css$/i,
                 use: [{ loader: 'style-loader' }, { loader: 'css-loader' }],
             },
         ],
     },
     plugins: [
-        new webpack.LoaderOptionsPlugin({ debug: !isProduction }),
+        new webpack.LoaderOptionsPlugin({ dev: !isProduction }),
+
         new HtmlWebpackPlugin({
-            template: './src/index.html',
+            template: 'src/index.html',
+            filename: '../index.html',
         }),
-        new CopyPlugin({
-            patterns: [
-                {
-                    from: 'public',
-                    to: '',
-                },
-            ],
-        }),
-        new workboxPlugin.GenerateSW({
-            // we want our service worker to cache the dist directory
-            // globDirectory: 'publish',
-            // these are the sorts of files we want to cache
-            // globPatterns: ['**/*.{html,js,css,png,svg,jpg,gif,json}'],
-            // this is where we want our ServiceWorker to be created
-            swDest: path.resolve('publish', 'sw.js'),
-            // these options encourage the ServiceWorkers to get in there fast
-            // and not allow any straggling "old" SWs to hang around
-            clientsClaim: true,
-            skipWaiting: true,
-        }),
-    ],
+
+        isProduction &&
+            new CopyWebpackPlugin({
+                patterns: [{ from: 'public', to: '../' }],
+            }),
+    ].filter(Boolean),
     output: {
-        filename: 'dist/[name].js',
-        path: path.join(__dirname, 'publish'),
+        filename: '[name].js',
+        path: path.join(__dirname, 'publish', 'dist'),
+        publicPath: './publish',
+        clean: true,
     },
 };
