@@ -33,6 +33,7 @@ jobs:
           npm run build 
         env:
           NODE_ENV: production 
+          STAGE: production 
 
       # - name: Get package version 
       #   id: get_version 

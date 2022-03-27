@@ -15,16 +15,20 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new ReactRefreshPlugin(),
     ],
+    output: {
+        ...baseConfig.output,
+        clean: false,
+    },
     devServer: {
         port: 3000,
-        host: '0.0.0.0',
-        contentBase: path.resolve('publish'),
         historyApiFallback: true,
         hot: true,
-        hotOnly: true,
-        inline: true,
-        publicPath: '/',
-        watchContentBase: true,
-        writeToDisk: true,
+        liveReload: false,
+        devMiddleware: {
+            writeToDisk: true,
+        },
+        static: {
+            directory: path.resolve('publish'),
+        },
     },
 };

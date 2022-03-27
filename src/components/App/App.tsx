@@ -4,9 +4,10 @@ import { Header } from '../Header';
 import { MainForm } from '../MainForm';
 import { PrintJson } from '../PrintJson';
 import validate from 'validate.js';
-import './App.css';
 import { GoToTop } from '../GoToTop';
 import { useSnackbar } from 'notistack';
+
+import './App.css';
 
 const constraints = {
     json: {
