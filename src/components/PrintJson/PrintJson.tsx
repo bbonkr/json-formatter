@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Paper } from '@material-ui/core';
 import Prism from 'prismjs';
+
 import './PrintJson.css';
 import 'prismjs/themes/prism-tomorrow.css';
 
