@@ -2,7 +2,7 @@
     "name": "json-fomatter",
     "version": "1.0.0",
     "description": "",
-    "main": "src/jsx/index.js",
+    "main": "src/index.tsx",
     "scripts": {
         "dev": "webpack-dev-server --config webpack.config.dev.js --mode development",
         "build": " webpack",
@@ -23,7 +23,7 @@
         "@emotion/styled": "^11.8.1",
         "@mui/icons-material": "^5.5.1",
         "@mui/material": "^5.5.2",
-        "notistack": "^1.0.10",
+        "notistack": "^2.0.5",
         "prismjs": "^1.27.0",
         "react": "^17.0.1",
         "react-dom": "^17.0.1",
