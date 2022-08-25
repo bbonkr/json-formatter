@@ -2,7 +2,7 @@
     "name": "json-fomatter",
     "version": "1.0.0",
     "description": "",
-    "main": "src/jsx/index.js",
+    "main": "src/index.tsx",
     "scripts": {
         "dev": "webpack-dev-server --config webpack.config.dev.js --mode development",
         "build": " webpack",

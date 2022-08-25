@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Typography } from '@mui/material';
 import { GitHub } from '@mui/icons-material';
 
 import './Header.css';
