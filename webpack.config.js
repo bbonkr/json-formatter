@@ -7,8 +7,8 @@ const isProduction = process.env.STAGE === 'production';
 
 module.exports = {
     name: 'build',
-    devtool: isProduction ? 'hidden-source-map' : 'eval',
-    mode: isProduction ? 'production' : 'development',
+    devtool: 'hidden-source-map',
+    mode: 'production',
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
     },
@@ -22,11 +22,11 @@ module.exports = {
                 use: [
                     {
                         loader: 'babel-loader',
-                        options: {
-                            plugins: [
-                                !isProduction && 'react-refresh/babel',
-                            ].filter(Boolean),
-                        },
+                        // options: {
+                        //     plugins: [
+                        //         !isProduction && 'react-refresh/babel',
+                        //     ].filter(Boolean),
+                        // },
                     },
                 ].filter(Boolean),
                 exclude: /node_modules/,
@@ -53,7 +53,7 @@ module.exports = {
     output: {
         filename: '[name].js',
         path: path.join(__dirname, 'publish', 'dist'),
-        publicPath: './publish',
+        publicPath: './dist',
         clean: true,
     },
 };

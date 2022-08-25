@@ -10,6 +10,23 @@ module.exports = {
     resolve: {
         ...baseConfig.resolve,
     },
+    module: {
+        rules: [
+            ...baseConfig.module.rules,
+            {
+                test: /\.tsx?$/,
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            plugins: ['react-refresh/babel'],
+                        },
+                    },
+                ].filter(Boolean),
+                exclude: /node_modules/,
+            },
+        ],
+    },
     plugins: [
         ...baseConfig.plugins,
         new webpack.HotModuleReplacementPlugin(),
